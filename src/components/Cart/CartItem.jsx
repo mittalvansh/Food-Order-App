@@ -25,7 +25,7 @@ function CartItem(props) {
                     <span className={classes.amount}>x{props.data.amount}</span>
                 </div>
             </div>
-            <div>
+            <div className={classes.btn}>
                 <button className={classes.add}><FontAwesomeIcon icon={faPlus} onClick={addItemHandler} /></button>
                 <button className={classes.subtract}><FontAwesomeIcon icon={faMinus} onClick={removeItemHandler} /></button>
             </div>

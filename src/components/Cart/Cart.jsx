@@ -3,6 +3,9 @@ import ReactDOM from "react-dom";
 import CartItem from "./CartItem";
 import classes from './Cart.module.css';
 import CartContext from "../Hooks/cart-context";
+import { db } from "../../firebaseConfig";
+import { collection, addDoc } from "firebase/firestore";
+import { ToastContainer, toast } from "react-toastify";
 
 
 function Backdrop(props) {
@@ -11,8 +14,40 @@ function Backdrop(props) {
 
 function ModalOverlay(props) {
     const cartctx = useContext(CartContext);
+    const id = window.localStorage.getItem('uid');
+    const dbInstance = collection(db , "User" , id , "orderData")
+
+    function notify(message) {
+        toast(message, {
+            position: "bottom-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            progress: undefined,
+        });
+    }
+
+    const data = {
+        foodData : cartctx.items,
+        totalAmount: cartctx.totalAmount,
+        time: Date().toString()
+    }
+
+    async function clickHandler(e) {
+        try {
+            await addDoc(dbInstance , data);
+            notify("Order placed successfully!");
+            setTimeout(() => {
+                cartctx.clearCart();
+                props.onClose();
+            }, 3500);
+        } catch(err) {
+            alert(err.message)
+        }
+    };
 
     return (
+        <>
+        <ToastContainer toastStyle={{ backgroundColor: "#262626", color: "#fff" }} />
         <div className={classes.modal}>
             {cartctx.items.map(meal => (
                 <CartItem
@@ -28,10 +63,10 @@ function ModalOverlay(props) {
 
             <div className={classes.actions}>
                 <button className={classes['button--alt']} onClick={props.onClose}> Close</button>
-                <button className={classes.button} >Order</button>
+                <button className={classes.button} onClick={clickHandler}>Order</button>
             </div>
-        </div >
-
+        </div>
+        </>
     );
 }
 

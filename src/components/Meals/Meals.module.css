@@ -1,7 +1,13 @@
 .container {
-    width: 50%;
-    margin: 1rem auto;
-    background-color: #fff;
-    border-radius: 12px;
-    padding: 1rem;
+  width: 50%;
+  margin: 1rem auto;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 75%;
+  }
 }

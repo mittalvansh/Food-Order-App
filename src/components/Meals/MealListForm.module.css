@@ -1,31 +1,47 @@
 .container label {
-    font-weight: bolder;
-    margin-right: 0.5rem;
+  font-weight: bolder;
+  margin-right: 0.5rem;
 }
 
 .container input {
-    width: 3rem;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font: inherit;
-    padding-left: 0.5rem;
+  width: 3rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font: inherit;
+  padding-left: 0.5rem;
 }
 
 .form button {
-    font: inherit;
-    cursor: pointer;
-    background-color: #8a2b06;
-    border: 1px solid #8a2b06;
-    color: white;
-    transform: translate(20%);
-    margin-top: 1rem;
-    padding: 0.25rem 2rem;
-    border-radius: 20px;
-    font-weight: bold;
+  font: inherit;
+  cursor: pointer;
+  background-color: #8a2b06;
+  border: 1px solid #8a2b06;
+  color: white;
+  transform: translate(20%);
+  margin-top: 1rem;
+  padding: 0.25rem 2rem;
+  border-radius: 20px;
+  font-weight: bold;
 }
 
 .form button:hover,
 .form button:active {
-    background-color: #641e03;
-    border-color: #641e03;
+  background-color: #641e03;
+  border-color: #641e03;
+}
+
+@media (max-width: 768px) {
+  .form label {
+    font-size: 1rem !important;
+    font-weight: 500 !important;
+    margin-right: 0.4rem !important;
+  }
+
+  .form input {
+    width: 2.5rem !important;
+  }
+
+  .form button {
+    padding: 0.25rem 1.5rem !important;
+  }
 }

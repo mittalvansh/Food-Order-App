@@ -33,7 +33,7 @@ const handler = (state, action) => {
             totalAmount: updatedTotalAmount,
         };
     }
-    if (action.type === 'remove-item') {
+    else if (action.type === 'remove-item') {
         const existingCartItemIndex = state.items.findIndex(
             (item) => item.id === action.id
         );
@@ -53,11 +53,23 @@ const handler = (state, action) => {
             totalAmount: updatedTotalAmount
         };
     }
+    else if(action.type === 'clear-cart') {
+        const updatedItems = [];
+        const updatedTotalAmount = 0;
+
+        return {
+            ...state,
+            items: updatedItems,
+            totalAmount: updatedTotalAmount
+        };
+    }
 
     return defaultCartState;
 }
 
 const CartProvider = (props) => {
+    const [state, dispatch] = useReducer(handler, defaultItemList);
+
     const addItemHandler = (item) => {
         dispatch({ type: "add-item", item: item });
     };
@@ -66,17 +78,20 @@ const CartProvider = (props) => {
         dispatch({ type: "remove-item", id: id });
     };
 
-    const [state, dispatch] = useReducer(handler, defaultItemList);
+    const clearCartHandler = () => {
+        dispatch({ type: "clear-cart" });
+    };
 
-    const cartContext = {
+    const ctx = {
         items: state.items,
         totalAmount: state.totalAmount,
         addItem: addItemHandler,
         removeItem: removeItemHandler,
+        clearCart: clearCartHandler
     };
 
     return (
-        <CartContext.Provider value={cartContext}>
+        <CartContext.Provider value={ctx}>
             {props.children}
         </CartContext.Provider>
     );

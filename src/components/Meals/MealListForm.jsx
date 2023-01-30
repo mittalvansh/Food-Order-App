@@ -1,7 +1,6 @@
 import React, { useRef, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-
 import classes from './MealListForm.module.css';
 import CartContext from "../Hooks/cart-context";
 import Input from "../UI/Input";
@@ -20,11 +19,13 @@ function MealListForm(props) {
             id: props.id,
             amount: amount
         });
+
+        inputref.current.value = 1;
     }
 
     return (
         <>
-            <form className={classes.form} onSubmit={(e) => submitHandler(e)}>
+            <form className={classes.form} onSubmit={submitHandler}>
                 <Input
                     ref={inputref}
                     label='Amount'
