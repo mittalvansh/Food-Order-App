@@ -38,7 +38,7 @@ function ModalOverlay(props) {
             notify("Order placed successfully!");
             setTimeout(() => {
                 cartctx.clearCart();
-                props.onClose();
+                window.location.reload();
             }, 3500);
         } catch(err) {
             alert(err.message)
